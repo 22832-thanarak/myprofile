@@ -34,12 +34,14 @@
         <div class="profile-layout">
             <!-- Left Side: Profile Image Card -->
             <div class="card profile-img-card">
-                <!-- อัปเดตที่นี่: ระบุชื่อไฟล์รูปภาพให้ตรงกับ download (1).jpg -->
                 <img src="download (1).jpg" alt="รูปโปรไฟล์ของ ธนรักษ์ ปาวิลา" class="profile-avatar">
                 <h2>ธนรักษ์ ปาวิลา</h2>
                 <span class="profile-tag">ชื่อเล่น: พอตเตอร์</span>
-                <!-- แก้ไขคติประจำใจตรงบรรทัดนี้ครับ -->
-                <p class="profile-quote">"จนกระทั่งชายแว่นได้เดินเข้ามา"</p>
+                
+                <!-- เพิ่ม inline style เพื่อป้องกันปัญหา CSS บังข้อความ -->
+                <p class="profile-quote" style="display: block !important; visibility: visible !important; color: #333 !important; font-size: 1.1rem; margin-top: 12px; font-style: italic;">
+                    "จนกระทั่งชายแว่นได้เดินเข้ามา"
+                </p>
             </div>
 
             <!-- Right Side: Personal Info -->
