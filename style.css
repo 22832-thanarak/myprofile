@@ -1,11 +1,10 @@
 /* ==========================================================================
-   Minecraft Modern In-Game GUI (v1.20+) - Animated Edition
+   Minecraft Pure CSS Animated Panorama Engine (No External File Needed)
    ========================================================================== */
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;700&family=Press+Start+2P&display=swap');
 
 :root {
     --mc-gui-bg: #C6C6C6;
-    --mc-gui-dark-bg: #101010;
     --mc-btn-bg: #7C7C7C;
     --mc-btn-hover: #5555FF;
     --mc-tooltip-bg: rgba(16, 0, 16, 0.95);
@@ -17,7 +16,6 @@
     --mc-text-gold: #FFAA00;
 }
 
-/* Base Reset */
 * {
     margin: 0;
     padding: 0;
@@ -26,12 +24,12 @@
 }
 
 /* --------------------------------------------------------------------------
-   Background System & Live Panorama Animation
+   Animated Background Engine (ขยับแน่ 100% ไม่ต้องโหลดภาพนอก)
    -------------------------------------------------------------------------- */
 body {
     font-family: 'Press Start 2P', 'Kanit', sans-serif;
     position: relative;
-    background-color: #0F0F13 !important;
+    background-color: #1a110b !important; /* สีน้ำตาลดิน Minecraft */
     color: #FFFFFF;
     line-height: 1.6;
     overflow-x: hidden;
@@ -39,21 +37,26 @@ body {
     min-height: 100vh;
 }
 
-/* ฉากหลังหมุนวนช้าๆ แบบ Panorama หน้าเมนูหลัก */
+/* ฉากหลังบล็อกพิกเซลขยับหมุนเลื่อนมุมมอง (Live Panorama) */
 body::before {
     content: '';
     position: fixed;
-    top: -10%;
-    left: -10%;
-    width: 130vw;
-    height: 130vh;
+    top: -20%;
+    left: -20%;
+    width: 140vw;
+    height: 140vh;
     z-index: -2;
-    background: url('https://images.unsplash.com/photo-1627856013091-fed6e4e30025?q=80&w=1920&auto=format&fit=crop') center/cover repeat-x !important;
-    filter: blur(6px) brightness(0.45);
-    animation: mcPanoramaMove 60s linear infinite;
+    background-size: 64px 64px;
+    background-image: 
+        radial-gradient(circle at 50% 50%, #2e1d11 25%, transparent 26%),
+        radial-gradient(circle at 0% 0%, #422917 25%, transparent 26%),
+        radial-gradient(circle at 100% 100%, #150d08 25%, transparent 26%),
+        linear-gradient(45deg, #24160c 25%, #1a110b 25%, #1a110b 50%, #24160c 50%, #24160c 75%, #1a110b 75%, #1a110b 100%);
+    filter: blur(2px) brightness(0.7);
+    animation: mcLivePanorama 20s linear infinite;
 }
 
-/* ฟิล์มมืดและ Vignette ครอบหน้าจอ */
+/* เงามืดและ Vignette ปรับโทนเกม */
 body::after {
     content: '';
     position: fixed;
@@ -62,19 +65,15 @@ body::after {
     width: 100vw;
     height: 100vh;
     z-index: -1;
-    background-color: rgba(16, 16, 16, 0.65) !important;
-    background-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.85) 100%) !important;
+    background: radial-gradient(circle at center, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.9) 100%);
     pointer-events: none;
 }
 
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-ul {
-    list-style: none;
-}
+/* --------------------------------------------------------------------------
+   Layout & Container Components
+   -------------------------------------------------------------------------- */
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
 
 .container {
     width: 90%;
@@ -82,59 +81,28 @@ ul {
     margin: 0 auto;
 }
 
-.section-padding {
-    padding: 60px 0;
-}
+.section-padding { padding: 50px 0; }
 
-.grid-3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-}
-
-/* --------------------------------------------------------------------------
-   Typography & Animated Titles
-   -------------------------------------------------------------------------- */
 .page-title {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 .page-title h1 {
     font-size: 2.2rem;
     color: var(--mc-text-gold);
     text-shadow: 3px 3px 0px #000;
-    animation: mcTitleGlow 3s ease-in-out infinite alternate;
+    animation: mcGlowText 2s ease-in-out infinite alternate;
 }
 
 .page-title p {
-    color: #AAAAAA;
-    font-size: 1rem;
-    margin-top: 10px;
-    text-shadow: var(--mc-text-shadow);
-}
-
-.section-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.section-header h2 {
-    font-size: 1.8rem;
-    color: var(--mc-text-aqua);
-    text-shadow: 2px 2px 0px #000;
-}
-
-.section-header p {
     color: #AAAAAA;
     font-size: 0.9rem;
     margin-top: 8px;
     text-shadow: var(--mc-text-shadow);
 }
 
-/* --------------------------------------------------------------------------
-   Animated Containers & Cards
-   -------------------------------------------------------------------------- */
+/* GUI Window Card */
 .card {
     background: var(--mc-gui-bg);
     color: #202020;
@@ -143,20 +111,18 @@ ul {
     box-shadow: 
         inset -3px -3px 0px #555555, 
         inset 3px 3px 0px #FFFFFF;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .card:hover {
-    transform: translateY(-6px);
+    transform: translateY(-5px);
     box-shadow: 
         inset -3px -3px 0px #3F3F3F, 
         inset 3px 3px 0px #FFFFFF,
         0 0 0 3px var(--mc-text-yellow);
 }
 
-/* --------------------------------------------------------------------------
-   Navigation Bar
-   -------------------------------------------------------------------------- */
+/* Navbar */
 .navbar-container {
     position: sticky;
     top: 0;
@@ -170,280 +136,52 @@ ul {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 60px;
+    height: 50px;
     width: 90%;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .logo {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     color: var(--mc-text-gold);
     text-shadow: 2px 2px 0px #3F3F3F;
 }
 
-.logo span {
-    color: var(--mc-text-aqua);
-}
-
-.nav-links {
-    display: flex;
-    gap: 8px;
-}
+.logo span { color: var(--mc-text-aqua); }
+.nav-links { display: flex; gap: 8px; }
 
 .nav-links a {
-    font-size: 0.85rem;
-    padding: 8px 16px;
+    font-size: 0.8rem;
+    padding: 8px 14px;
     background: #707070;
     color: #E0E0E0;
     border: 2px solid #000;
     box-shadow: inset -2px -2px 0px #3C3C3C, inset 2px 2px 0px #A8A8A8;
     text-shadow: var(--mc-text-shadow);
-    transition: all 0.1s step-end;
 }
 
-.nav-links a:hover, 
-.nav-links a.active {
+.nav-links a:hover, .nav-links a.active {
     background: var(--mc-btn-hover);
     color: var(--mc-text-yellow);
     border-color: #FFFFFF;
-    transform: scale(1.03);
 }
 
-.nav-links a:active {
-    transform: translateY(2px);
-    box-shadow: inset 2px 2px 0px #3C3C3C, inset -2px -2px 0px #A8A8A8;
-}
-
-/* --------------------------------------------------------------------------
-   Minecraft Interactive Buttons
-   -------------------------------------------------------------------------- */
-.btn {
-    display: inline-block;
-    padding: 12px 20px;
-    font-family: inherit;
-    font-size: 0.9rem;
-    cursor: pointer;
-    border: 2px solid #000000;
-    text-align: center;
-    user-select: none;
-    position: relative;
-    transition: transform 0.05s ease;
-}
-
-.btn-primary {
-    background: var(--mc-btn-bg);
-    color: #E0E0E0;
-    text-shadow: var(--mc-text-shadow);
-    box-shadow: inset -2px -2px 0px #3C3C3C, inset 2px 2px 0px #A8A8A8;
-}
-
-.btn-primary:hover {
-    background: var(--mc-btn-hover);
-    color: var(--mc-text-yellow);
-    border-color: #FFFFFF;
-    box-shadow: inset -2px -2px 0px #2A2A80, inset 2px 2px 0px #A0A0FF;
-}
-
-/* เอฟเฟกต์ปุ่มจมลงเมื่อถูกกดคลิก */
-.btn:active {
-    transform: translateY(3px);
-    box-shadow: inset 2px 2px 0px #000000, inset -2px -2px 0px #555555 !important;
-}
-
-.btn-secondary {
-    background: #4A3525;
-    color: #FFFFFF;
-    text-shadow: var(--mc-text-shadow);
-    box-shadow: inset -2px -2px 0px #2A1D12, inset 2px 2px 0px #70523B;
-}
-
-.btn-secondary:hover {
-    background: #55FF55;
-    color: #000000;
-    text-shadow: none;
-    border-color: #FFFFFF;
-}
-
-.btn-light {
-    background: #E0E0E0;
-    color: #000000;
-    box-shadow: inset -2px -2px 0px #A0A0A0, inset 2px 2px 0px #FFFFFF;
-}
-
-.btn-light:hover {
-    background: #FFFFFF;
-    border-color: var(--mc-text-gold);
-}
-
-.full-width {
-    width: 100%;
-}
-
-/* --------------------------------------------------------------------------
-   Hero Section & Floating Animations
-   -------------------------------------------------------------------------- */
-.hero-section {
-    width: 90%;
-    max-width: 1200px;
-    margin: 40px auto;
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    align-items: center;
-    gap: 40px;
-    min-height: 60vh;
-}
-
-.badge {
-    display: inline-block;
-    padding: 8px 14px;
-    background: var(--mc-tooltip-bg);
-    color: var(--mc-text-green);
-    border: 2px solid var(--mc-tooltip-border);
-    box-shadow: inset 0 0 0 1px #100010;
-    font-size: 0.8rem;
-    margin-bottom: 16px;
-    text-shadow: var(--mc-text-shadow);
-    animation: mcItemPulse 2s infinite alternate;
-}
-
-.hero-title {
-    font-size: 2.2rem;
-    line-height: 1.4;
-    margin-bottom: 20px;
-    color: #FFFFFF;
-    text-shadow: 3px 3px 0px #000;
-}
-
-.highlight-text {
-    color: var(--mc-text-aqua);
-    background: none;
-    -webkit-text-fill-color: initial;
-    text-shadow: 3px 3px 0px #000;
-}
-
-.hero-subtitle {
-    font-size: 0.95rem;
-    color: #AAAAAA;
-    margin-bottom: 30px;
-    line-height: 1.8;
-    text-shadow: var(--mc-text-shadow);
-}
-
-.hero-buttons {
-    display: flex;
-    gap: 16px;
-}
-
-.hero-image-wrapper {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.blob-bg {
-    position: absolute;
-    width: 260px;
-    height: 260px;
-    background: #2A1D12;
-    border: 3px solid #000;
-    z-index: 1;
-}
-
-/* อนิเมชันรูปโปรไฟล์ลอยขึ้น-ลงแบบไอเทมตกบนพื้น */
-.hero-img {
-    width: 250px;
-    height: 250px;
-    object-fit: cover;
-    background-color: #000;
-    border: 4px solid #FFFFFF;
-    box-shadow: 0 0 0 4px #000000;
-    position: relative;
-    z-index: 2;
-    font-size: 0;
-    animation: mcItemFloat 3s ease-in-out infinite;
-}
-
-.hero-img:hover {
-    border-color: var(--mc-text-yellow);
-    box-shadow: 0 0 15px var(--mc-text-yellow);
-}
-
-/* --------------------------------------------------------------------------
-   Stats & CTA Animations
-   -------------------------------------------------------------------------- */
-.stat-card {
-    text-align: center;
-}
-
-.stat-icon {
-    font-size: 2rem;
-    margin-bottom: 12px;
-    display: inline-block;
-    animation: mcItemFloat 2.5s ease-in-out infinite;
-}
-
-.stat-value {
-    font-size: 1.1rem;
-    color: var(--mc-text-gold);
-    text-shadow: var(--mc-text-shadow);
-}
-
-.stat-desc {
-    color: #555555;
-    font-size: 0.8rem;
-    margin-top: 6px;
-}
-
-.cta-card {
-    background: var(--mc-tooltip-bg);
-    color: #FFFFFF;
-    padding: 40px;
-    border: 3px solid var(--mc-tooltip-border);
-    box-shadow: inset 0 0 0 2px #100010, 0 0 20px rgba(40, 0, 112, 0.6);
-    text-align: center;
-    animation: mcCardGlow 4s ease-in-out infinite alternate;
-}
-
-.cta-card h2 {
-    font-size: 1.8rem;
-    margin-bottom: 16px;
-    color: var(--mc-text-yellow);
-    text-shadow: 2px 2px 0px #000;
-}
-
-.cta-card p {
-    margin-bottom: 24px;
-    font-size: 0.9rem;
-    color: #AAAAAA;
-    text-shadow: var(--mc-text-shadow);
-}
-
-/* --------------------------------------------------------------------------
-   Profile Section
-   -------------------------------------------------------------------------- */
+/* Profile Page Components */
 .profile-layout {
     display: grid;
     grid-template-columns: 0.8fr 1.2fr;
-    gap: 30px;
-}
-
-.profile-img-card {
-    text-align: center;
+    gap: 24px;
 }
 
 .profile-avatar {
-    width: 180px;
-    height: 180px;
-    border-radius: 0;
+    width: 160px;
+    height: 160px;
     object-fit: cover;
-    background-color: #000;
     border: 4px solid #FFFFFF;
     box-shadow: 0 0 0 4px #000000;
-    margin-bottom: 20px;
-    font-size: 0;
-    animation: mcItemFloat 3.2s ease-in-out infinite;
+    margin-bottom: 15px;
+    animation: mcItemFloat 3s ease-in-out infinite;
 }
 
 .profile-tag {
@@ -452,212 +190,71 @@ ul {
     background: #000000;
     color: var(--mc-text-green);
     border: 2px solid #555555;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     margin: 8px 0;
-}
-
-.profile-quote {
-    font-style: normal;
-    color: #555555;
-    margin-top: 15px;
-    font-size: 0.85rem;
-}
-
-.profile-details {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
 }
 
 .info-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    margin-top: 15px;
+    gap: 12px;
+    margin-top: 10px;
 }
 
-.info-item {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
+.info-item .label { font-size: 0.75rem; color: #555555; }
+.info-item .value { font-size: 0.85rem; color: #000000; font-weight: bold; }
 
-.info-item .label {
-    font-size: 0.75rem;
-    color: #666666;
-}
-
-.info-item .value {
-    font-size: 0.9rem;
-    color: #000000;
-    font-weight: bold;
-}
-
+.bio-box, .info-box { margin-bottom: 20px; }
 .bio-box h3, .info-box h3 {
     color: #000000;
-    margin-bottom: 12px;
-    border-bottom: 3px solid #555555;
-    padding-bottom: 8px;
-    font-size: 1.1rem;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #555555;
+    padding-bottom: 6px;
 }
 
-/* --------------------------------------------------------------------------
-   Footer Section
-   -------------------------------------------------------------------------- */
+/* Footer */
 .footer {
     background: #000000;
     color: #FFFFFF;
-    padding-top: 40px;
-    margin-top: 60px;
+    padding-top: 30px;
+    margin-top: 50px;
     border-top: 4px solid #373737;
 }
 
 .footer-grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    gap: 40px;
-    padding-bottom: 40px;
-    border-bottom: 2px solid #222222;
+    gap: 30px;
+    padding-bottom: 30px;
 }
 
-.footer-info h3 {
-    font-size: 1.3rem;
-    margin-bottom: 12px;
-    color: var(--mc-text-gold);
-    text-shadow: var(--mc-text-shadow);
-}
-
-.footer-info h3 span {
-    color: var(--mc-text-aqua);
-}
-
-.footer-info p {
-    font-size: 0.85rem;
-    color: #AAAAAA;
-    text-shadow: var(--mc-text-shadow);
-}
-
-.footer-links h4 {
-    margin-bottom: 15px;
-    color: var(--mc-text-yellow);
-    font-size: 0.95rem;
-    text-shadow: var(--mc-text-shadow);
-}
-
-.footer-links ul {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.footer-links a {
-    color: #AAAAAA;
-    font-size: 0.85rem;
-    text-shadow: var(--mc-text-shadow);
-    transition: color 0.15s ease;
-}
-
-.footer-links a:hover {
-    color: var(--mc-text-yellow);
-    text-decoration: underline;
-}
-
-.footer-bottom {
-    text-align: center;
-    padding: 20px 0;
-    font-size: 0.75rem;
-    color: #555555;
-}
+.footer-bottom { text-align: center; padding: 15px 0; font-size: 0.7rem; color: #555; }
 
 /* --------------------------------------------------------------------------
-   KEYFRAME ANIMATIONS
+   KEYFRAMES ANIMATION (จุดสำคัญที่ทำให้ขยับ)
    -------------------------------------------------------------------------- */
 
-/* 1. ฉากหลังพานอรามาหมุนวน */
-@keyframes mcPanoramaMove {
-    0% { background-position: 0px 0; }
-    100% { background-position: 1920px 0; }
+/* 1. อนิเมชันฉากหลังเลื่อนลูปต่อเนื่อง */
+@keyframes mcLivePanorama {
+    0% {
+        transform: scale(1.1) translate(0, 0) rotate(0deg);
+    }
+    50% {
+        transform: scale(1.1) translate(-32px, -32px) rotate(1deg);
+    }
+    100% {
+        transform: scale(1.1) translate(0, 0) rotate(0deg);
+    }
 }
 
-/* 2. ไอเทมลอยขึ้น-ลงแบบในเกม */
+/* 2. อนิเมชันรูปโปรไฟล์ลอยขึ้นลง */
 @keyframes mcItemFloat {
     0%, 100% { transform: translateY(0px); }
     50% { transform: translateY(-8px); }
 }
 
-/* 3. แสงเรืองรอบการ์ด Tooltip */
-@keyframes mcCardGlow {
-    0% { box-shadow: inset 0 0 0 2px #100010, 0 0 10px rgba(40, 0, 112, 0.4); }
-    100% { box-shadow: inset 0 0 0 2px #100010, 0 0 25px rgba(85, 85, 255, 0.7); }
-}
-
-/* 4. ข้อความหัวเรื่องเปล่งออร่า */
-@keyframes mcTitleGlow {
-    0% { text-shadow: 3px 3px 0px #000, 0 0 5px rgba(255, 170, 0, 0.2); }
-    100% { text-shadow: 3px 3px 0px #000, 0 0 15px rgba(255, 255, 85, 0.8); }
-}
-
-/* 5. ป้าย Badge กระพริบเบาๆ */
-@keyframes mcItemPulse {
-    0% { border-color: #280070; }
-    100% { border-color: #5555FF; }
-}
-
-/* --------------------------------------------------------------------------
-   Responsive Design
-   -------------------------------------------------------------------------- */
-@media (max-width: 992px) {
-    .hero-section {
-        grid-template-columns: 1fr;
-        text-align: center;
-        min-height: auto;
-    }
-
-    .hero-buttons {
-        justify-content: center;
-    }
-
-    .grid-3 {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .profile-layout {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        height: auto;
-        padding: 10px 0;
-        gap: 12px;
-    }
-
-    .nav-links {
-        gap: 6px;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .nav-links a {
-        padding: 6px 10px;
-        font-size: 0.75rem;
-    }
-
-    .hero-title {
-        font-size: 1.6rem;
-    }
-
-    .grid-3 {
-        grid-template-columns: 1fr;
-    }
-
-    .info-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .footer-grid {
-        grid-template-columns: 1fr;
-    }
+/* 3. ข้อความเรืองแสง */
+@keyframes mcGlowText {
+    0% { text-shadow: 3px 3px 0px #000; }
+    100% { text-shadow: 3px 3px 0px #000, 0 0 12px rgba(255, 255, 85, 0.8); }
 }
