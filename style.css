@@ -2,6 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen&display=swap');
 
 body {
+/* นำเข้าฟอนต์พิกเซลสำหรับภาษาอังกฤษและไทย */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen&display=swap');
+
+body {
     font-family: 'Silkscreen', 'Press Start 2P', monospace, sans-serif;
     position: relative;
     background-color: #0f0f13 !important;
