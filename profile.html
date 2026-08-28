@@ -6,10 +6,56 @@
     <title>ประวัติส่วนตัว | Student Portfolio M.3</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* --------------------------------------------------------------------------
+           Minecraft Live Direct Video Background System
+           -------------------------------------------------------------------------- */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .video-background video {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            filter: blur(4px) brightness(0.5) contrast(1.1);
+            transform: scale(1.05);
+        }
+
+        .mc-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background-color: rgba(16, 16, 16, 0.45);
+            background-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.85) 100%);
+            pointer-events: none;
+        }
+    </style>
 </head>
 <body>
+
+    <!-- 1. Direct Live Video Background (Minecraft Shader Loop) -->
+    <div class="video-background">
+        <video autoplay loop muted playsinline poster="download.jpg">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-game-animation-of-a-character-in-a-forest-42864-large.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- 2. Dark Vignette Overlay -->
+    <div class="mc-overlay"></div>
 
     <!-- Navigation Bar -->
     <header class="navbar-container">
@@ -25,6 +71,7 @@
         </nav>
     </header>
 
+    <!-- Main Content -->
     <main class="container section-padding">
         <div class="page-title">
             <h1>ประวัติส่วนตัว</h1>
@@ -32,45 +79,41 @@
         </div>
 
         <div class="profile-layout">
-            <!-- Left Side: Profile Image Card -->
+            <!-- ด้านซ้าย: รูปและคติประจำใจ -->
             <div class="card profile-img-card">
-                <img src="download (1).jpg" alt="รูปโปรไฟล์ของ ธนรักษ์ ปาวิลา" class="profile-avatar">
-                <h2>ธนรักษ์ ปาวิลา</h2>
-                <span class="profile-tag">ชื่อเล่น: พอตเตอร์</span>
-                
-                <!-- เพิ่ม inline style เพื่อป้องกันปัญหา CSS บังข้อความ -->
-                <p class="profile-quote" style="display: block !important; visibility: visible !important; color: #333 !important; font-size: 1.1rem; margin-top: 12px; font-style: italic;">
-                    "จนกระทั่งชายแว่นได้เดินเข้ามา"
-                </p>
+                <img src="download.jpg" alt="ธนรักษ์ ปาวิลา" class="profile-avatar">
+                <h3>ธนรักษ์ ปาวิลา</h3>
+                <span class="profile-tag">ชื่อเล่น : พอตเตอร์</span>
+                <p class="profile-quote">"จนกระทั่งชายแว่นได้เดินเข้ามา"</p>
             </div>
 
-            <!-- Right Side: Personal Info -->
+            <!-- ด้านขวา: ตารางข้อมูล -->
             <div class="profile-details">
                 <div class="card info-box">
                     <h3>ข้อมูลพื้นฐาน</h3>
                     <div class="info-grid">
                         <div class="info-item">
-                            <span class="label">ชื่อ-นามสกุล:</span>
+                            <span class="label">ชื่อ-นามสกุล :</span>
                             <span class="value">ธนรักษ์ ปาวิลา</span>
                         </div>
                         <div class="info-item">
-                            <span class="label">ชื่อเล่น:</span>
+                            <span class="label">ชื่อเล่น :</span>
                             <span class="value">พอตเตอร์</span>
                         </div>
                         <div class="info-item">
-                            <span class="label">อายุ:</span>
+                            <span class="label">อายุ :</span>
                             <span class="value">15 ปี</span>
                         </div>
                         <div class="info-item">
-                            <span class="label">วันเกิด:</span>
+                            <span class="label">วันเกิด :</span>
                             <span class="value">22/10/2554</span>
                         </div>
                         <div class="info-item">
-                            <span class="label">ระดับชั้น:</span>
+                            <span class="label">ระดับชั้น :</span>
                             <span class="value">มัธยมศึกษาปีที่ 3/2</span>
                         </div>
                         <div class="info-item">
-                            <span class="label">จังหวัด:</span>
+                            <span class="label">จังหวัด :</span>
                             <span class="value">เชียงใหม่</span>
                         </div>
                     </div>
