@@ -1,10 +1,10 @@
-/* ==========================================================================
-   Minecraft In-Game GUI Dark Overlay Background (Inventory & Settings Style)
-   ========================================================================== */
+/* นำเข้าฟอนต์พิกเซลสำหรับภาษาอังกฤษและไทย */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen&display=swap');
+
 body {
-    font-family: 'Press Start 2P', monospace;
+    font-family: 'Silkscreen', 'Press Start 2P', monospace, sans-serif;
     position: relative;
-    background-color: #0f0f13;
+    background-color: #0f0f13 !important;
     color: #FFFFFF;
     line-height: 1.6;
     overflow-x: hidden;
@@ -12,7 +12,7 @@ body {
     min-height: 100vh;
 }
 
-/* 1. เลเยอร์ฉากหลังเกม (Game World Scene) */
+/* 1. ฉากหลังภาพในเกมแบบ Blur */
 body::before {
     content: '';
     position: fixed;
@@ -21,14 +21,12 @@ body::before {
     width: 100vw;
     height: 100vh;
     z-index: -2;
-    /* สามารถเปลี่ยน URL ภาพเป็นฉากในเกมตามต้องการ */
-    background: url('https://images.unsplash.com/photo-1627856013091-fed6e4e30025?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
-    /* เบลอฉากหลังเหมือนเวลาเปิด GUI หน้าต่างเมนูในเกม */
-    filter: blur(6px) brightness(0.6);
-    transform: scale(1.05); /* ป้องกันขอบเบลอขาวรอบนอก */
+    background: url('https://images.unsplash.com/photo-1627856013091-fed6e4e30025?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat !important;
+    filter: blur(6px) brightness(0.5);
+    transform: scale(1.05);
 }
 
-/* 2. เลเยอร์ Dark Tint Overlay (ฉากเงาดำความโปร่งแสงแบบในเกมแท้) */
+/* 2. ฟิล์มมืดโปร่งแสงฉาบทับหน้าจอ (Dark Overlay) */
 body::after {
     content: '';
     position: fixed;
@@ -37,9 +35,7 @@ body::after {
     width: 100vw;
     height: 100vh;
     z-index: -1;
-    /* แผ่นฟิล์มสีดำความเข้มแบบในหน้า Inventory */
-    background-color: rgba(16, 16, 16, 0.68);
-    /* เพิ่ม Gradient นุ่มๆ ตรงกลางจอเน้นจุดโฟกัส */
-    background-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.75) 100%);
+    background-color: rgba(16, 16, 16, 0.7) !important;
+    background-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.8) 100%) !important;
     pointer-events: none;
 }
