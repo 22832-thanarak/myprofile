@@ -1,24 +1,26 @@
 /* ==========================================================================
-   Minecraft Design System & CSS Variables
+   Minecraft Modern In-Game GUI (v1.20+) Design System
    ========================================================================== */
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 :root {
-    --mc-dirt: #573D26;
-    --mc-grass: #5B8731;
-    --mc-stone: #737373;
+    /* Modern Minecraft Color Palette */
     --mc-gui-bg: #C6C6C6;
-    --mc-gui-dark: #373737;
-    --mc-gui-light: #FFFFFF;
-    --mc-diamond: #40E0D0;
-    --mc-gold: #FFAA00;
-    --mc-text-dark: #202020;
-    --mc-text-light: #FFFFFF;
-
+    --mc-gui-dark-bg: #101010;
+    --mc-btn-bg: #7C7C7C;
+    --mc-btn-hover: #5555FF;
+    --mc-tooltip-bg: #100010;
+    --mc-tooltip-border: #280070;
+    --mc-text-shadow: 2px 2px 0px #3F3F3F;
+    --mc-text-yellow: #FFFF55;
+    --mc-text-aqua: #55FFFF;
+    --mc-text-green: #55FF55;
+    --mc-text-gold: #FFAA00;
+    
     --radius-sm: 0px;
     --radius-md: 0px;
     --radius-lg: 0px;
-    --transition: none; /* UI ใน Minecraft จะตอบสนองแบบทันที */
+    --transition: none;
 }
 
 /* Base Reset */
@@ -29,15 +31,18 @@
     image-rendering: pixelated;
 }
 
+/* พื้นหลังลาย Dirt Tile แบบในหน้า Menu เกม */
 body {
-    font-family: 'VT323', monospace, sans-serif;
-    background-color: #1E1E1E;
-    background-image: radial-gradient(#373737 15%, transparent 16%);
-    background-size: 16px 16px;
-    color: var(--mc-text-light);
-    line-height: 1.4;
+    font-family: 'Press Start 2P', monospace;
+    background-color: #141414;
+    background-image: 
+        linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+        repeating-linear-gradient(0deg, #4A3525 0px, #4A3525 8px, #3B2A1D 8px, #3B2A1D 16px);
+    background-size: 32px 32px;
+    color: #FFFFFF;
+    line-height: 1.6;
     overflow-x: hidden;
-    font-size: 1.25rem;
+    font-size: 11px;
 }
 
 a {
@@ -71,14 +76,16 @@ ul {
 }
 
 .page-title h1 {
-    font-size: 3.2rem;
-    color: var(--mc-gold);
+    font-size: 2rem;
+    color: var(--mc-text-gold);
     text-shadow: 3px 3px 0px #000;
 }
 
 .page-title p {
-    color: var(--mc-gui-bg);
-    font-size: 1.4rem;
+    color: #AAAAAA;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    text-shadow: var(--mc-text-shadow);
 }
 
 .section-header {
@@ -87,128 +94,139 @@ ul {
 }
 
 .section-header h2 {
-    font-size: 2.5rem;
-    color: var(--mc-diamond);
+    font-size: 1.5rem;
+    color: var(--mc-text-aqua);
     text-shadow: 2px 2px 0px #000;
 }
 
 .section-header p {
-    color: var(--mc-gui-bg);
+    color: #AAAAAA;
+    font-size: 0.8rem;
+    margin-top: 8px;
+    text-shadow: var(--mc-text-shadow);
 }
 
-/* Card Design (Minecraft Inventory Slot / Container Style) */
+/* Minecraft Container Window (GUI Panel) */
 .card {
     background: var(--mc-gui-bg);
-    color: var(--mc-text-dark);
-    border-radius: 0;
+    color: #3F3F3F;
     padding: 24px;
-    border: 4px solid #000000;
-    box-shadow: inset -4px -4px 0px #555555, inset 4px 4px 0px #FFFFFF;
-    transition: none;
+    border: 3px solid #000000;
+    /* จำลองมิติขอบพิกเซล 9-Slice ของ GUI แท้ */
+    box-shadow: 
+        inset -3px -3px 0px #555555, 
+        inset 3px 3px 0px #FFFFFF;
 }
 
 .card:hover {
-    transform: translateY(-4px);
-    border-color: var(--mc-gold);
+    box-shadow: 
+        inset -3px -3px 0px #3F3F3F, 
+        inset 3px 3px 0px #FFFFFF,
+        0 0 0 3px var(--mc-text-yellow);
 }
 
-/* Navigation Bar */
+/* Navigation Bar Style */
 .navbar-container {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: var(--mc-gui-dark);
-    border-bottom: 4px solid #000;
-    box-shadow: 0 4px 0px rgba(0, 0, 0, 0.4);
+    background: #000000;
+    border-bottom: 3px solid #373737;
+    padding: 10px 0;
 }
 
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 80px;
+    height: 60px;
     width: 90%;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .logo {
-    font-size: 2.2rem;
-    font-weight: bold;
-    color: var(--mc-gold);
-    text-shadow: 2px 2px 0px #000;
+    font-size: 1.2rem;
+    color: var(--mc-text-gold);
+    text-shadow: 2px 2px 0px #3F3F3F;
 }
 
 .logo span {
-    color: var(--mc-diamond);
+    color: var(--mc-text-aqua);
 }
 
 .nav-links {
     display: flex;
-    gap: 12px;
+    gap: 8px;
 }
 
 .nav-links a {
-    font-size: 1.3rem;
-    padding: 6px 16px;
-    background: var(--mc-stone);
-    color: var(--mc-text-light);
-    border: 3px solid #000;
-    box-shadow: inset -3px -3px 0px #373737, inset 3px 3px 0px #AAAAAA;
-    text-shadow: 1px 1px 0px #000;
+    font-size: 0.75rem;
+    padding: 10px 14px;
+    background: #707070;
+    color: #E0E0E0;
+    border: 2px solid #000;
+    box-shadow: inset -2px -2px 0px #3C3C3C, inset 2px 2px 0px #A8A8A8;
+    text-shadow: var(--mc-text-shadow);
 }
 
 .nav-links a:hover, 
 .nav-links a.active {
-    background: var(--mc-grass);
-    color: #FFFF55;
+    background: var(--mc-btn-hover);
+    color: var(--mc-text-yellow);
+    border-color: #FFFFFF;
 }
 
-/* Minecraft Buttons */
+/* Modern Minecraft Button Component */
 .btn {
     display: inline-block;
-    padding: 10px 24px;
-    font-size: 1.3rem;
+    padding: 12px 20px;
     font-family: inherit;
+    font-size: 0.8rem;
     cursor: pointer;
-    border: 4px solid #000000;
-    border-radius: 0;
+    border: 2px solid #000000;
     text-align: center;
     user-select: none;
+    position: relative;
 }
 
 .btn-primary {
-    background: var(--mc-stone);
-    color: var(--mc-text-light);
-    text-shadow: 2px 2px 0px #000;
-    box-shadow: inset -4px -4px 0px #373737, inset 4px 4px 0px #DBDBDB;
+    background: var(--mc-btn-bg);
+    color: #E0E0E0;
+    text-shadow: var(--mc-text-shadow);
+    box-shadow: inset -2px -2px 0px #3C3C3C, inset 2px 2px 0px #A8A8A8;
 }
 
 .btn-primary:hover {
-    background: var(--mc-grass);
-    color: #FFFF55;
+    background: var(--mc-btn-hover);
+    color: var(--mc-text-yellow);
+    border-color: #FFFFFF;
+    box-shadow: inset -2px -2px 0px #2A2A80, inset 2px 2px 0px #A0A0FF;
 }
 
 .btn-secondary {
-    background: var(--mc-dirt);
+    background: #4A3525;
     color: #FFFFFF;
-    text-shadow: 2px 2px 0px #000;
-    box-shadow: inset -4px -4px 0px #2A1D12, inset 4px 4px 0px #855E3D;
+    text-shadow: var(--mc-text-shadow);
+    box-shadow: inset -2px -2px 0px #2A1D12, inset 2px 2px 0px #70523B;
 }
 
 .btn-secondary:hover {
-    background: #735133;
-    color: #FFFF55;
+    background: #55FF55;
+    color: #000000;
+    text-shadow: none;
+    border-color: #FFFFFF;
 }
 
 .btn-light {
-    background: var(--mc-gui-bg);
-    color: var(--mc-text-dark);
-    box-shadow: inset -4px -4px 0px #707070, inset 4px 4px 0px #FFFFFF;
+    background: #E0E0E0;
+    color: #000000;
+    box-shadow: inset -2px -2px 0px #A0A0A0, inset 2px 2px 0px #FFFFFF;
 }
 
 .btn-light:hover {
-    background: #E0E0E0;
+    background: #FFFFFF;
+    border-color: var(--mc-text-gold);
 }
 
 .full-width {
@@ -219,44 +237,48 @@ ul {
 .hero-section {
     width: 90%;
     max-width: 1200px;
-    margin: 40px auto 20px auto;
+    margin: 40px auto;
     display: grid;
     grid-template-columns: 1.2fr 0.8fr;
     align-items: center;
     gap: 40px;
-    min-height: 70vh;
+    min-height: 60vh;
 }
 
+/* Item Tooltip Style (กล่องข้อความสีม่วงแบบในเกม) */
 .badge {
     display: inline-block;
-    padding: 4px 12px;
-    background: var(--mc-grass);
-    color: #FFFFFF;
-    border: 3px solid #000;
-    font-size: 1.1rem;
+    padding: 8px 12px;
+    background: rgba(16, 0, 16, 0.95);
+    color: var(--mc-text-green);
+    border: 2px solid var(--mc-tooltip-border);
+    box-shadow: inset 0 0 0 1px #100010;
+    font-size: 0.7rem;
     margin-bottom: 16px;
-    text-shadow: 1px 1px 0px #000;
+    text-shadow: var(--mc-text-shadow);
 }
 
 .hero-title {
-    font-size: 3.5rem;
-    line-height: 1;
-    margin-bottom: 16px;
+    font-size: 2.2rem;
+    line-height: 1.3;
+    margin-bottom: 20px;
     color: #FFFFFF;
     text-shadow: 3px 3px 0px #000;
 }
 
 .highlight-text {
-    color: var(--mc-diamond);
+    color: var(--mc-text-aqua);
     background: none;
     -webkit-text-fill-color: initial;
     text-shadow: 3px 3px 0px #000;
 }
 
 .hero-subtitle {
-    font-size: 1.4rem;
-    color: var(--mc-gui-bg);
+    font-size: 0.85rem;
+    color: #AAAAAA;
     margin-bottom: 30px;
+    line-height: 1.8;
+    text-shadow: var(--mc-text-shadow);
 }
 
 .hero-buttons {
@@ -273,31 +295,27 @@ ul {
 
 .blob-bg {
     position: absolute;
-    width: 310px;
-    height: 310px;
-    background: var(--mc-dirt);
-    border: 4px solid #000;
-    border-radius: 0;
-    animation: none;
+    width: 260px;
+    height: 260px;
+    background: #2A1D12;
+    border: 3px solid #000;
     z-index: 1;
 }
 
 .hero-img {
-    width: 300px;
-    height: 300px;
+    width: 250px;
+    height: 250px;
     object-fit: cover;
-    background-color: var(--mc-stone);
-    border-radius: 0;
-    border: 6px solid #000;
-    box-shadow: inset -6px -6px 0px #373737, inset 6px 6px 0px #FFFFFF;
+    background-color: #000;
+    border: 4px solid #FFFFFF;
+    box-shadow: 0 0 0 4px #000000;
     position: relative;
     z-index: 2;
-    transition: none;
     font-size: 0;
 }
 
 .hero-img:hover {
-    transform: scale(1.02);
+    border-color: var(--mc-text-yellow);
 }
 
 /* Stat Cards */
@@ -306,43 +324,44 @@ ul {
 }
 
 .stat-icon {
-    font-size: 3rem;
-    margin-bottom: 10px;
+    font-size: 2rem;
+    margin-bottom: 12px;
 }
 
 .stat-value {
-    font-size: 1.6rem;
-    font-weight: bold;
-    color: var(--mc-diamond);
-    text-shadow: 2px 2px 0px #000;
+    font-size: 1rem;
+    color: var(--mc-text-gold);
+    text-shadow: var(--mc-text-shadow);
 }
 
 .stat-desc {
-    color: var(--mc-text-dark);
-    font-size: 1.1rem;
+    color: #555555;
+    font-size: 0.7rem;
+    margin-top: 6px;
 }
 
 /* CTA Card */
 .cta-card {
-    background: var(--mc-dirt);
+    background: rgba(16, 0, 16, 0.9);
     color: #FFFFFF;
     padding: 40px;
-    border-radius: 0;
+    border: 3px solid var(--mc-tooltip-border);
+    box-shadow: inset 0 0 0 2px #100010, 0 0 15px rgba(0,0,0,0.8);
     text-align: center;
-    border: 4px solid #000;
-    box-shadow: inset -4px -4px 0px #2A1D12, inset 4px 4px 0px #855E3D;
 }
 
 .cta-card h2 {
-    font-size: 2.8rem;
-    margin-bottom: 12px;
-    color: var(--mc-gold);
+    font-size: 1.6rem;
+    margin-bottom: 16px;
+    color: var(--mc-text-yellow);
     text-shadow: 2px 2px 0px #000;
 }
 
 .cta-card p {
     margin-bottom: 24px;
-    font-size: 1.3rem;
+    font-size: 0.8rem;
+    color: #AAAAAA;
+    text-shadow: var(--mc-text-shadow);
 }
 
 /* Profile Page Styles */
@@ -357,33 +376,32 @@ ul {
 }
 
 .profile-avatar {
-    width: 200px;
-    height: 200px;
+    width: 180px;
+    height: 180px;
     border-radius: 0;
     object-fit: cover;
-    background-color: var(--mc-stone);
-    border: 4px solid #000;
+    background-color: #000;
+    border: 4px solid #FFFFFF;
+    box-shadow: 0 0 0 4px #000000;
     margin-bottom: 20px;
-    box-shadow: inset -4px -4px 0px #373737, inset 4px 4px 0px #FFFFFF;
     font-size: 0;
 }
 
 .profile-tag {
     display: inline-block;
-    padding: 4px 12px;
-    background: var(--mc-stone);
-    color: var(--mc-gold);
-    border: 3px solid #000;
-    font-size: 1.1rem;
+    padding: 6px 10px;
+    background: #000000;
+    color: var(--mc-text-green);
+    border: 2px solid #555555;
+    font-size: 0.75rem;
     margin: 8px 0;
-    text-shadow: 1px 1px 0px #000;
 }
 
 .profile-quote {
-    font-style: italic;
-    color: var(--mc-text-dark);
+    font-style: normal;
+    color: #555555;
     margin-top: 15px;
-    font-size: 1.2rem;
+    font-size: 0.75rem;
 }
 
 .profile-details {
@@ -402,34 +420,34 @@ ul {
 .info-item {
     display: flex;
     flex-direction: column;
+    gap: 4px;
 }
 
 .info-item .label {
-    font-size: 1.1rem;
-    color: #555555;
+    font-size: 0.65rem;
+    color: #777777;
 }
 
 .info-item .value {
-    font-weight: bold;
-    font-size: 1.3rem;
-    color: var(--mc-text-dark);
+    font-size: 0.8rem;
+    color: #000000;
 }
 
 .bio-box h3, .info-box h3 {
-    color: var(--mc-text-dark);
-    margin-bottom: 10px;
-    border-bottom: 4px solid #000;
+    color: #000000;
+    margin-bottom: 12px;
+    border-bottom: 3px solid #555555;
     padding-bottom: 8px;
-    font-size: 1.6rem;
+    font-size: 1rem;
 }
 
-/* Footer */
+/* Footer (Style หน้ากด Quit / Game Menu Options) */
 .footer {
-    background: var(--mc-gui-dark);
-    color: var(--mc-text-light);
-    padding-top: 50px;
+    background: #000000;
+    color: #FFFFFF;
+    padding-top: 40px;
     margin-top: 60px;
-    border-top: 4px solid #000;
+    border-top: 4px solid #373737;
 }
 
 .footer-grid {
@@ -437,53 +455,55 @@ ul {
     grid-template-columns: 2fr 1fr;
     gap: 40px;
     padding-bottom: 40px;
-    border-bottom: 3px solid var(--mc-stone);
+    border-bottom: 2px solid #222222;
 }
 
 .footer-info h3 {
-    font-size: 2.2rem;
-    margin-bottom: 10px;
-    color: var(--mc-gold);
-    text-shadow: 2px 2px 0px #000;
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    color: var(--mc-text-gold);
+    text-shadow: var(--mc-text-shadow);
 }
 
 .footer-info h3 span {
-    color: var(--mc-diamond);
+    color: var(--mc-text-aqua);
 }
 
 .footer-info p {
-    font-size: 1.2rem;
-    color: var(--mc-gui-bg);
+    font-size: 0.75rem;
+    color: #AAAAAA;
+    text-shadow: var(--mc-text-shadow);
 }
 
 .footer-links h4 {
     margin-bottom: 15px;
-    color: var(--mc-diamond);
-    font-size: 1.4rem;
-    text-shadow: 1px 1px 0px #000;
+    color: var(--mc-text-yellow);
+    font-size: 0.85rem;
+    text-shadow: var(--mc-text-shadow);
 }
 
 .footer-links ul {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
 }
 
 .footer-links a {
-    color: var(--mc-gui-bg);
-    font-size: 1.2rem;
+    color: #AAAAAA;
+    font-size: 0.75rem;
+    text-shadow: var(--mc-text-shadow);
 }
 
 .footer-links a:hover {
-    color: #FFFF55;
-    padding-left: 6px;
+    color: #FFFFFF;
+    text-decoration: underline;
 }
 
 .footer-bottom {
     text-align: center;
     padding: 20px 0;
-    font-size: 1.1rem;
-    color: var(--mc-stone);
+    font-size: 0.65rem;
+    color: #555555;
 }
 
 /* Responsive Design */
@@ -511,23 +531,23 @@ ul {
     .navbar {
         flex-direction: column;
         height: auto;
-        padding: 15px 0;
+        padding: 10px 0;
         gap: 12px;
     }
 
     .nav-links {
-        gap: 8px;
+        gap: 6px;
         flex-wrap: wrap;
         justify-content: center;
     }
 
     .nav-links a {
-        padding: 6px 12px;
-        font-size: 1.1rem;
+        padding: 6px 10px;
+        font-size: 0.65rem;
     }
 
     .hero-title {
-        font-size: 2.6rem;
+        font-size: 1.5rem;
     }
 
     .grid-3 {
